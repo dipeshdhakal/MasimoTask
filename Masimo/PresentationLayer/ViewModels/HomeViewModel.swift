@@ -44,18 +44,39 @@ enum HomeTab: String, CaseIterable, Identifiable {
 class HomeViewModel: ObservableObject {
     
     @Published var tabs = HomeTab.allCases
-    @Published var isMockData = false
+    @Published var isMockData: Bool
+    @Published var devicesViewModel: DevicesViewModel
+    @Published var nowPlayingViewModel: NowPlayingViewModel
     
     var masimoManager: MasimoManagable
+    private var cancellabels = Set<AnyCancellable>()
     
-    init(masimoManager: MasimoManagable = MasimoManager()) {
-        self.masimoManager = masimoManager
-        if isPreview {
-            isMockData = true
-        }
-        if isMockData {
+    init(masimoManager: MasimoManagable = MasimoManager(), isMockData: Bool = false) {
+                
+        if isMockData || isPreview {
             self.masimoManager = MockMasimoManager()
+        } else {
+            self.masimoManager = masimoManager
         }
+        self.isMockData = isMockData
+        self.devicesViewModel = DevicesViewModel(masimoManager: self.masimoManager)
+        self.nowPlayingViewModel = NowPlayingViewModel(masimoManager: self.masimoManager)
+        
+        $isMockData
+            .dropFirst()
+            .removeDuplicates()
+            .receive(on: RunLoop.main)
+            .sink { isMockData in
+                self.masimoManager = isMockData ? MockMasimoManager() : MasimoManager()
+                self.setViewModels()
+            }
+            .store(in: &cancellabels)
+    }
+    
+    func setViewModels() {
+        self.devicesViewModel = DevicesViewModel(masimoManager: masimoManager)
+        self.nowPlayingViewModel = NowPlayingViewModel(masimoManager: masimoManager)
+        self.objectWillChange.send() // force reload views
     }
         
 }

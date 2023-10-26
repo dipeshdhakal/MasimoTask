@@ -22,7 +22,7 @@ extension HTTPClient {
         urlComponents.path = endpoint.path
         
         guard let url = urlComponents.url else {
-            throw RequestError.invalidURL
+            throw NetrowkError.invalidURL
         }
         
         var request = URLRequest(url: url)
@@ -36,21 +36,18 @@ extension HTTPClient {
         do {
             let (data, response) = try await URLSession.shared.data(for: request, delegate: nil)
             guard let response = response as? HTTPURLResponse else {
-                throw RequestError.noResponse
+                throw NetrowkError.noResponse
             }
             switch response.statusCode {
             case 200...299:
-                guard let decodedResponse = try? JSONDecoder().decode(responseModel, from: data) else {
-                    throw RequestError.decode
-                }
-                return decodedResponse
+                return try JSONDecoder().decode(responseModel, from: data)
             case 401:
-                throw RequestError.unauthorized
+                throw NetrowkError.unauthorized
             default:
-                throw RequestError.unexpectedStatusCode
+                throw NetrowkError.unexpectedStatusCode
             }
         } catch {
-            throw RequestError.unknown
+            throw NetrowkError.unknown
         }
     }
 }

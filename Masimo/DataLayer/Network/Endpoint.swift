@@ -15,7 +15,7 @@ enum RequestMethod: String {
     case put = "PUT"
 }
 
-enum RequestError: Error {
+enum NetrowkError: Error {
     case decode
     case invalidURL
     case noResponse
@@ -50,6 +50,6 @@ extension Endpoint {
     }
 
     var host: String {
-        return "https://skyegloup-eula.s3.amazonaws.com"
+        return "skyegloup-eula.s3.amazonaws.com"
     }
 }

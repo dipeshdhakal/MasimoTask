@@ -36,14 +36,13 @@ struct HomeView: View {
     func getTabView(tab: HomeTab) -> some View {
         switch tab {
         case .devices:
-            DevicesView(viewModel: DevicesViewModel(masimoManager: viewModel.masimoManager))
+            DevicesView(viewModel: viewModel.devicesViewModel)
         case .nowPlaying:
-            NowPlayingView(viewModel: NowPlayingViewModel(masimoManager: viewModel.masimoManager))
+            NowPlayingView(viewModel: viewModel.nowPlayingViewModel)
         case .settings:
             SettingsView(showMockData: $viewModel.isMockData)
         }
     }
-    
 }
 
 #Preview {

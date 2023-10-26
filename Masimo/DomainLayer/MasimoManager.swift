@@ -8,25 +8,12 @@
 import Foundation
 import Combine
 
-enum DeviceState: Error {
-    case loading
-    case failure(error: String)
-    case empty
-    case success(data: [DeviceDisplayable])
-}
-
-enum NowPlayingState: Error {
-    case loading
-    case failure(error: String)
-    case notSet
-    case success(data: DeviceDisplayable)
-}
-
 class MasimoManager: MasimoManagable {
     
     var service: MasimoServiceable
-    var displayablesSubject = CurrentValueSubject<DeviceState, Never>(.loading)
-    var currentDeviceSubject = CurrentValueSubject<NowPlayingState, Never>(.loading)
+    var dataIsLoading: Bool = true
+    var displayablesSubject = CurrentValueSubject<[DeviceData], Error>([])
+    var currentDeviceSubject = CurrentValueSubject<DeviceData?, Never>(nil)
     
     init(service: MasimoServiceable = MasimoService()) {
         self.service = service
@@ -35,8 +22,6 @@ class MasimoManager: MasimoManagable {
     func fetchDevices()  {
         Task {
             do {
-                displayablesSubject.send(.loading)
-                
                 async let devices = try service.fetchDevices()
                 async let nowPlaying = try service.fetchNowPlaying()
                 
@@ -45,85 +30,56 @@ class MasimoManager: MasimoManagable {
                     devicesMap[item.id] = item.name
                 }
                 
-                let displayableDevices = try await nowPlaying.nowPlaying.map { item in
+               let displayableDevices = try await nowPlaying.nowPlaying.map { item in
                     guard let deviceName = devicesMap[item.deviceID] else {
-                        throw RequestError.unknown
+                        throw NetrowkError.unknown
                     }
                     
-                    return DeviceDisplayable(deviceID: item.deviceID, deviceTitle: deviceName, artwork: item.artworkSmall, largeArtwork: item.artworkLarge, trackTitle: item.trackName, artistTitle: item.artistName)
+                    return DeviceData(deviceID: item.deviceID, deviceTitle: deviceName, artwork: item.artworkSmall, largeArtwork: item.artworkLarge, trackTitle: item.trackName, artistTitle: item.artistName)
                 }
-                
-                displayablesSubject.send(displayableDevices.isEmpty ? .empty : .success(data: displayableDevices))
+                dataIsLoading = false
+                displayablesSubject.send(displayableDevices)
+                currentDeviceSubject.send(nil)
             } catch {
-                displayablesSubject.send(.failure(error: error.localizedDescription))
+                dataIsLoading = false
+                displayablesSubject.send(completion: .failure(error))
             }
         }
     }
+    
 }
 
 extension MasimoManagable {
     
     func fetchNowPlaying() {
-        if case .success(let data) = displayablesSubject.value {
-            if let currentDevice = data.first(where: { $0.isPlaying }) {
-                currentDeviceSubject.send(.success(data: currentDevice))
-            } else {
-                currentDeviceSubject.send(.notSet)
-            }
+        if let currentDevice = displayablesSubject.value.first(where: { $0.isSelected }) {
+            currentDeviceSubject.send(currentDevice)
         } else {
-            currentDeviceSubject.send(.loading)
+            currentDeviceSubject.send(nil)
         }
+    }
+    
+    func updateSelection(deviceID: Int) {
+        let displayableDevices = displayablesSubject.value
+        for device in displayableDevices {
+            if device.deviceID == deviceID {
+                device.isSelected.toggle()
+            } else {
+                device.isSelected = false
+            }
+        }
+        displayablesSubject.send(displayableDevices)
+        fetchNowPlaying()
     }
     
     func updateState(deviceID: Int) {
-        
-        if case .success(let data) = displayablesSubject.value {
-            for device in data {
-                if device.deviceID == deviceID {
-                    device.isPlaying.toggle()
-                } else {
-                    device.isPlaying = false
-                }
+        let displayableDevices = displayablesSubject.value
+        for device in displayableDevices {
+            if device.deviceID == deviceID {
+                device.isPlaying.toggle()
             }
-            displayablesSubject.send(.success(data: data))
-            fetchNowPlaying()
         }
-        //        let displayableDevices = displayablesSubject.value
-        //        for device in displayableDevices {
-        //            if device.deviceID == deviceID {
-        //                device.isPlaying.toggle()
-        //            } else {
-        //                device.isPlaying = false
-        //            }
-        //        }
-        //        displayablesSubject.send(displayableDevices)
-        //        fetchNowPlaying()
+        displayablesSubject.send(displayableDevices)
+        fetchNowPlaying()
     }
 }
-
-
-class DeviceDisplayable: Identifiable {
-    
-    var id: Int {
-        return deviceID
-    }
-    
-    var deviceID: Int
-    var deviceTitle: String
-    var artwork: String
-    var largeArtwork: String
-    var trackTitle: String
-    var artistTitle: String
-    var isPlaying: Bool
-    
-    init(deviceID: Int, deviceTitle: String, artwork: String, largeArtwork: String, trackTitle: String, artistTitle: String, isPlaying: Bool = false) {
-        self.deviceID = deviceID
-        self.deviceTitle = deviceTitle
-        self.artwork = artwork
-        self.largeArtwork = largeArtwork
-        self.trackTitle = trackTitle
-        self.artistTitle = artistTitle
-        self.isPlaying = isPlaying
-    }
-}
-

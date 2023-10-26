@@ -10,7 +10,7 @@ import Combine
 
 class NowPlayingViewModel: ObservableObject {
     
-    @Published var currentDevice: DeviceDisplayable?
+    @Published var currentDevice: DeviceData?
     
     var masimoManager: MasimoManagable
     private var cancellabels = Set<AnyCancellable>()
@@ -21,19 +21,20 @@ class NowPlayingViewModel: ObservableObject {
         self.currentDevice = masimoManager.currentDeviceSubject.value
         
         masimoManager.currentDeviceSubject
+            .dropFirst()
             .receive(on: RunLoop.main)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-        } receiveValue: { item in
-            self.currentDevice = item
-        }
-        .store(in: &cancellabels)
+            .sink { item in
+                self.currentDevice = item
+            }
+            .store(in: &cancellabels)
         
         masimoManager.fetchNowPlaying()
+    }
+    
+    func updateState() {
+        guard let currentDevice = currentDevice else {
+            return
+        }
+        masimoManager.updateState(deviceID: currentDevice.deviceID)
     }
 }

@@ -19,6 +19,6 @@ struct MasimoService: HTTPClient, MasimoServiceable {
     }
     
     func fetchNowPlaying() async throws -> NowPlayingResponse {
-        return try await sendRequest(endpoint: MasimoEndpoint.listDevices, responseModel: NowPlayingResponse.self)
+        return try await sendRequest(endpoint: MasimoEndpoint.listNowPlaying, responseModel: NowPlayingResponse.self)
     }
 }

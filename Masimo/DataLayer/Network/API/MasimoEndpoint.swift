@@ -16,9 +16,9 @@ extension MasimoEndpoint: Endpoint {
     
     var path: String {
         switch self {
-        case .listDevices:
-            return "/heos_app/code_test/nowplaying.json"
         case .listNowPlaying:
+            return "/heos_app/code_test/nowplaying.json"
+        case .listDevices:
             return "/heos_app/code_test/devices.json"
         }
     }

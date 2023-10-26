@@ -10,16 +10,16 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @StateObject var viewModel: SettingsViewModel
+    @Binding var showMockData: Bool
     
     init(showMockData: Binding<Bool>) {
-        self._viewModel = StateObject(wrappedValue: SettingsViewModel(showmockData: showMockData))
+        self._showMockData = showMockData
     }
     
     var body: some View {
         NavigationStack {
             VStack {
-                Toggle(isOn: $viewModel.showmockData, label: {
+                Toggle(isOn: $showMockData, label: {
                     Text("Show Mock Data")
                 })
                 Spacer()

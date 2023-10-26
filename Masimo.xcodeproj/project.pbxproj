@@ -30,9 +30,9 @@
 		2FC854542AE9200A0025D292 /* GlobalConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854532AE9200A0025D292 /* GlobalConvenienceMethods.swift */; };
 		2FC854562AE923B40025D292 /* NowPlayingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854552AE923B40025D292 /* NowPlayingViewModel.swift */; };
 		2FC854582AE9D0180025D292 /* TimeInterval+Formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854572AE9D0180025D292 /* TimeInterval+Formatted.swift */; };
-		2FC8545A2AE9D1930025D292 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854592AE9D1930025D292 /* SettingsViewModel.swift */; };
 		2FC8545C2AE9D67D0025D292 /* Color+Named.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8545B2AE9D67C0025D292 /* Color+Named.swift */; };
 		2FC8545F2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8545E2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift */; };
+		2FC854612AEA53BC0025D292 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854602AEA53BC0025D292 /* DeviceData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,9 +79,9 @@
 		2FC854532AE9200A0025D292 /* GlobalConvenienceMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConvenienceMethods.swift; sourceTree = "<group>"; };
 		2FC854552AE923B40025D292 /* NowPlayingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewModel.swift; sourceTree = "<group>"; };
 		2FC854572AE9D0180025D292 /* TimeInterval+Formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Formatted.swift"; sourceTree = "<group>"; };
-		2FC854592AE9D1930025D292 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		2FC8545B2AE9D67C0025D292 /* Color+Named.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Named.swift"; sourceTree = "<group>"; };
 		2FC8545E2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceDisplayable+Mocks.swift"; sourceTree = "<group>"; };
+		2FC854602AEA53BC0025D292 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +183,7 @@
 			children = (
 				2FC8544E2AE8F8D50025D292 /* MasimoManager.swift */,
 				2FC854502AE91CD60025D292 /* MasimoManagable.swift */,
+				2FC854602AEA53BC0025D292 /* DeviceData.swift */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -212,7 +213,6 @@
 				2F0840892AE8EDB6007162E2 /* HomeViewModel.swift */,
 				2FC8543D2AE8F5CC0025D292 /* DevicesViewModel.swift */,
 				2FC854552AE923B40025D292 /* NowPlayingViewModel.swift */,
-				2FC854592AE9D1930025D292 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -399,7 +399,6 @@
 				2FC854512AE91CD60025D292 /* MasimoManagable.swift in Sources */,
 				2FC8544A2AE8F5E70025D292 /* MasimoEndpoint.swift in Sources */,
 				2FC854582AE9D0180025D292 /* TimeInterval+Formatted.swift in Sources */,
-				2FC8545A2AE9D1930025D292 /* SettingsViewModel.swift in Sources */,
 				2F08408A2AE8EDB6007162E2 /* HomeViewModel.swift in Sources */,
 				2FC8544F2AE8F8D50025D292 /* MasimoManager.swift in Sources */,
 				2FC854382AE8F45D0025D292 /* DevicesView.swift in Sources */,
@@ -415,6 +414,7 @@
 				2FC8544B2AE8F5E70025D292 /* Endpoint.swift in Sources */,
 				2FC8543A2AE8F46C0025D292 /* NowPlayingView.swift in Sources */,
 				2FC8545C2AE9D67D0025D292 /* Color+Named.swift in Sources */,
+				2FC854612AEA53BC0025D292 /* DeviceData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

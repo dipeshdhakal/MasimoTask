@@ -10,16 +10,11 @@ import SwiftUI
 
 struct NowPlayingView: View {
     
-    @StateObject var viewModel: NowPlayingViewModel
+    @ObservedObject var viewModel: NowPlayingViewModel
     @State private var volume: Double = 0.5
     @State private var time: Double = 0.2
     @State private var isMuted: Bool = false
-    @State private var isPlaying: Bool = true
     @State private var musicLength: TimeInterval = 240
-    
-    init(viewModel: NowPlayingViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -40,6 +35,7 @@ struct NowPlayingView: View {
                             .shadow(radius: 10)
                     default:
                         Image(systemName: "photo")
+                            .frame(width: 200, height: 200)
                     }
                     Slider(value: $time)
                         .accentColor(.black)
@@ -60,17 +56,16 @@ struct NowPlayingView: View {
                             .font(.title3)
                         Spacer()
                     }
-                    .frame(width: .infinity)
                     .padding(.bottom, 20)
                     HStack(spacing: 30) {
                         Image(systemName: "repeat")
                             .font(.title2)
                         Image(systemName: "backward.fill")
                             .font(.title2)
-                        Image(isPlaying ? "now_playing_controls_play" : "now_playing_controls_pause")
+                        Image(currentDevice.isPlaying ? "now_playing_controls_pause" : "now_playing_controls_play")
                             .font(.title2)
                             .onTapGesture {
-                                isPlaying.toggle()
+                                viewModel.updateState()
                             }
                         Image(systemName: "forward.fill")
                             .font(.title2)
@@ -90,9 +85,12 @@ struct NowPlayingView: View {
                     Spacer()
                 }
             } else {
-                ContentUnavailableView("", systemImage: "photo")
+                ContentUnavailableView {
+                    Label("No active play item at the moment", systemImage: "bookmark")
+                } description: {
+                    Text("Please play an item from devices screen")
+                }
             }
-            
         }
         .padding()
     }

@@ -6,13 +6,19 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
+
+enum DeviceState: Error {
+    case loading
+    case failure(error: String)
+    case empty
+    case success
+}
 
 
 class DevicesViewModel: ObservableObject {
     
-    @Published var devices: [DeviceDisplayable] = []
+    @Published var devices: [DeviceData] = []
     @Published var deviceState: DeviceState = .loading
     
     var masimoManager: MasimoManagable
@@ -21,40 +27,30 @@ class DevicesViewModel: ObservableObject {
     init(masimoManager: MasimoManagable) {
         
         self.masimoManager = masimoManager
-        self.deviceState = masimoManager.displayablesSubject.value
+        self.deviceState = masimoManager.dataIsLoading ? .loading : deviceState
+        self.devices = masimoManager.displayablesSubject.value
         
         masimoManager.displayablesSubject
             .receive(on: RunLoop.main)
-            .sink { _ in
-                
-            } receiveValue: { state in
-                self.deviceState = state
-            }
-            .store(in: &cancellabels)
-
-
-        
-//        masimoManager.displayablesSubject
-//            .receive(on: RunLoop.main)
-//            .sink { completion in
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                }
-//        } receiveValue: { items in
-//            self.devices = items
-//        }
-//        .store(in: &cancellabels)
-                
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.deviceState = .failure(error: error.localizedDescription)
+                    print(error.localizedDescription)
+                }
+        } receiveValue: { items in
+            self.devices = items
+            self.deviceState = items.isEmpty ? .empty : .success
+        }
+        .store(in: &cancellabels)
         masimoManager.fetchDevices()
-
+        
     }
 
-    
     func didTapOnDevice(deviceID: Int) {
-        masimoManager.updateState(deviceID: deviceID)
+        masimoManager.updateSelection(deviceID: deviceID)
     }
     
 }
