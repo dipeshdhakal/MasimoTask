@@ -21,12 +21,11 @@ extension DeviceDisplayable {
 
 class MockMasimoManager: MasimoManagable {
     
-    var stateSubject = CurrentValueSubject<DataState, Never>(.success)
-    var displayablesSubject = CurrentValueSubject<[DeviceDisplayable], Error>([])
-    var currentDeviceSubject = CurrentValueSubject<DeviceDisplayable?, Never>(nil)
+    var displayablesSubject = CurrentValueSubject<DeviceState, Never>(.loading)
+    var currentDeviceSubject = CurrentValueSubject<NowPlayingState, Never>(.loading)
     
     func fetchDevices() {
-        displayablesSubject.send(DeviceDisplayable.mockDevices)
+        displayablesSubject.send(.success(data: DeviceDisplayable.mockDevices))
     }
     
 }

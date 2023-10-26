@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 protocol MasimoManagable {
-    var displayablesSubject: CurrentValueSubject<[DeviceDisplayable], Error> { get set }
-    var currentDeviceSubject: CurrentValueSubject<DeviceDisplayable?, Error> { get set }
+    var displayablesSubject: CurrentValueSubject<DeviceState, Never> { get set }
+    var currentDeviceSubject: CurrentValueSubject<NowPlayingState, Never> { get set }
     func fetchDevices()
     func fetchNowPlaying()
     func updateState(deviceID: Int)

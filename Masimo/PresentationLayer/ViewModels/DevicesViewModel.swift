@@ -13,7 +13,7 @@ import Combine
 class DevicesViewModel: ObservableObject {
     
     @Published var devices: [DeviceDisplayable] = []
-    @Published var viewState: DataState = .loading
+    @Published var deviceState: DeviceState = .loading
     
     var masimoManager: MasimoManagable
     private var cancellabels = Set<AnyCancellable>()
@@ -21,24 +21,32 @@ class DevicesViewModel: ObservableObject {
     init(masimoManager: MasimoManagable) {
         
         self.masimoManager = masimoManager
-        self.devices = masimoManager.displayablesSubject.value
+        self.deviceState = masimoManager.displayablesSubject.value
         
         masimoManager.displayablesSubject
             .receive(on: RunLoop.main)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-        } receiveValue: { items in
-            self.devices = items
-        }
-        .store(in: &cancellabels)
+            .sink { _ in
+                
+            } receiveValue: { state in
+                self.deviceState = state
+            }
+            .store(in: &cancellabels)
+
+
         
-        masimoManager.statePublisher
-            .assign(to: &viewState, on: RunLoop.main)
+//        masimoManager.displayablesSubject
+//            .receive(on: RunLoop.main)
+//            .sink { completion in
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                }
+//        } receiveValue: { items in
+//            self.devices = items
+//        }
+//        .store(in: &cancellabels)
                 
         masimoManager.fetchDevices()
 

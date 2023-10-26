@@ -22,20 +22,20 @@ enum NowPlayingState: Error {
     case success(data: DeviceDisplayable)
 }
 
-class MasimoManager: MasimoManagable {    
+class MasimoManager: MasimoManagable {
     
     var service: MasimoServiceable
-    var displayablesSubject = CurrentValueSubject<[DeviceDisplayable], Error>([])
-    var currentDeviceSubject = CurrentValueSubject<DeviceDisplayable?, Error>(nil)
+    var displayablesSubject = CurrentValueSubject<DeviceState, Never>(.loading)
+    var currentDeviceSubject = CurrentValueSubject<NowPlayingState, Never>(.loading)
     
     init(service: MasimoServiceable = MasimoService()) {
         self.service = service
     }
     
-    func fetchDevices() -> AnyPublisher<[DeviceDisplayable], Error>  {
+    func fetchDevices()  {
         Task {
             do {
-                displayablesSubject.send(completion: .failure(MasimoError.dataStillLoading))
+                displayablesSubject.send(.loading)
                 
                 async let devices = try service.fetchDevices()
                 async let nowPlaying = try service.fetchNowPlaying()
@@ -45,7 +45,7 @@ class MasimoManager: MasimoManagable {
                     devicesMap[item.id] = item.name
                 }
                 
-               let displayableDevices = try await nowPlaying.nowPlaying.map { item in
+                let displayableDevices = try await nowPlaying.nowPlaying.map { item in
                     guard let deviceName = devicesMap[item.deviceID] else {
                         throw RequestError.unknown
                     }
@@ -53,37 +53,51 @@ class MasimoManager: MasimoManagable {
                     return DeviceDisplayable(deviceID: item.deviceID, deviceTitle: deviceName, artwork: item.artworkSmall, largeArtwork: item.artworkLarge, trackTitle: item.trackName, artistTitle: item.artistName)
                 }
                 
-                stateSubject.send(displayableDevices.isEmpty ? .empty : .success)
-                displayablesSubject.send(displayableDevices)
+                displayablesSubject.send(displayableDevices.isEmpty ? .empty : .success(data: displayableDevices))
             } catch {
-                stateSubject.send(.failure(error: error.localizedDescription))
-                displayablesSubject.send(completion: .failure(error))
+                displayablesSubject.send(.failure(error: error.localizedDescription))
             }
         }
-    }    
+    }
 }
 
 extension MasimoManagable {
     
     func fetchNowPlaying() {
-        if let currentDevice = displayablesSubject.value.first(where: { $0.isPlaying }) {
-            currentDeviceSubject.send(currentDevice)
+        if case .success(let data) = displayablesSubject.value {
+            if let currentDevice = data.first(where: { $0.isPlaying }) {
+                currentDeviceSubject.send(.success(data: currentDevice))
+            } else {
+                currentDeviceSubject.send(.notSet)
+            }
         } else {
-            currentDeviceSubject.send(nil)
+            currentDeviceSubject.send(.loading)
         }
     }
     
     func updateState(deviceID: Int) {
-        let displayableDevices = displayablesSubject.value
-        for device in displayableDevices {
-            if device.deviceID == deviceID {
-                device.isPlaying.toggle()
-            } else {
-                device.isPlaying = false
+        
+        if case .success(let data) = displayablesSubject.value {
+            for device in data {
+                if device.deviceID == deviceID {
+                    device.isPlaying.toggle()
+                } else {
+                    device.isPlaying = false
+                }
             }
+            displayablesSubject.send(.success(data: data))
+            fetchNowPlaying()
         }
-        displayablesSubject.send(displayableDevices)
-        fetchNowPlaying()
+        //        let displayableDevices = displayablesSubject.value
+        //        for device in displayableDevices {
+        //            if device.deviceID == deviceID {
+        //                device.isPlaying.toggle()
+        //            } else {
+        //                device.isPlaying = false
+        //            }
+        //        }
+        //        displayablesSubject.send(displayableDevices)
+        //        fetchNowPlaying()
     }
 }
 
