@@ -8,8 +8,8 @@
 import Foundation
 
 // MARK: - NowPlayingResponse
-struct NowPlayingResponse: Codable {
-    let nowPlaying: [NowPlaying]
+public struct NowPlayingResponse: Codable {
+    public let nowPlaying: [NowPlaying]
 
     enum CodingKeys: String, CodingKey {
         case nowPlaying = "Now Playing"
@@ -17,10 +17,10 @@ struct NowPlayingResponse: Codable {
 }
 
 // MARK: - NowPlaying
-struct NowPlaying: Codable {
-    let deviceID: Int
-    let artworkSmall, artworkLarge: String
-    let trackName, artistName: String
+public struct NowPlaying: Codable {
+    public let deviceID: Int
+    public let artworkSmall, artworkLarge: String
+    public let trackName, artistName: String
 
     enum CodingKeys: String, CodingKey {
         case deviceID = "Device ID"

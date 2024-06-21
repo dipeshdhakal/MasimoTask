@@ -8,8 +8,9 @@
 import Foundation
 
 // MARK: - DeviceResponse
-struct DeviceResponse: Codable {
-    let devices: [Device]
+public struct DeviceResponse: Codable {
+    
+    public let devices: [Device]
 
     enum CodingKeys: String, CodingKey {
         case devices = "Devices"
@@ -17,9 +18,9 @@ struct DeviceResponse: Codable {
 }
 
 // MARK: - Device
-struct Device: Codable {
-    let id: Int
-    let name: String
+public struct Device: Codable {
+    public let id: Int
+    public let name: String
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"

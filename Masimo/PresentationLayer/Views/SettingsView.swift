@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    // Mock data setting; Two way binding
     @Binding var showMockData: Bool
     
     init(showMockData: Binding<Bool>) {

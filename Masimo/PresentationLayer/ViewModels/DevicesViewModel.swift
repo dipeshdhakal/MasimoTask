@@ -24,12 +24,14 @@ class DevicesViewModel: ObservableObject {
     var masimoManager: MasimoManagable
     private var cancellabels = Set<AnyCancellable>()
     
+    // Dependency injection
     init(masimoManager: MasimoManagable) {
         
         self.masimoManager = masimoManager
         self.deviceState = masimoManager.dataIsLoading ? .loading : deviceState
         self.devices = masimoManager.displayablesSubject.value
         
+        // observe changes in domain layer data to update UI
         masimoManager.displayablesSubject
             .receive(on: RunLoop.main)
             .sink { completion in
@@ -49,6 +51,7 @@ class DevicesViewModel: ObservableObject {
         
     }
 
+    // User selected a device
     func didTapOnDevice(deviceID: Int) {
         masimoManager.updateSelection(deviceID: deviceID)
     }

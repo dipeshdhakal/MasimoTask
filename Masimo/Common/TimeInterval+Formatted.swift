@@ -9,6 +9,7 @@ import Foundation
 
 extension TimeInterval {
     
+    // formats TimeInterval to mm:ss format (eg: 02:33)
     var toMMSS: String {
         let interval = Int(self)
         let seconds = interval % 60

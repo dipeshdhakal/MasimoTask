@@ -49,6 +49,7 @@ class MasimoManager: MasimoManagable {
     
 }
 
+// default implementations because it has same behaviour in mock implementation as well
 extension MasimoManagable {
     
     func fetchNowPlaying() {

@@ -13,8 +13,10 @@
 		2F0840612AE8ED29007162E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F0840602AE8ED29007162E2 /* Preview Assets.xcassets */; };
 		2F08406B2AE8ED2A007162E2 /* MasimoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F08406A2AE8ED2A007162E2 /* MasimoTests.swift */; };
 		2F0840752AE8ED2A007162E2 /* MasimoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0840742AE8ED2A007162E2 /* MasimoUITests.swift */; };
-		2F0840772AE8ED2A007162E2 /* MasimoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0840762AE8ED2A007162E2 /* MasimoUITestsLaunchTests.swift */; };
 		2F08408A2AE8EDB6007162E2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0840892AE8EDB6007162E2 /* HomeViewModel.swift */; };
+		2FC637132AEB2187008EDC07 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC637122AEB2187008EDC07 /* HomeViewModelTests.swift */; };
+		2FC637152AEB244F008EDC07 /* DevicesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC637142AEB244F008EDC07 /* DevicesViewModelTests.swift */; };
+		2FC637172AEB4B1E008EDC07 /* NowPlayingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC637162AEB4B1E008EDC07 /* NowPlayingViewModelTests.swift */; };
 		2FC854382AE8F45D0025D292 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854372AE8F45D0025D292 /* DevicesView.swift */; };
 		2FC8543A2AE8F46C0025D292 /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854392AE8F46C0025D292 /* NowPlayingView.swift */; };
 		2FC8543C2AE8F4760025D292 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8543B2AE8F4760025D292 /* SettingsView.swift */; };
@@ -33,6 +35,12 @@
 		2FC8545C2AE9D67D0025D292 /* Color+Named.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8545B2AE9D67C0025D292 /* Color+Named.swift */; };
 		2FC8545F2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8545E2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift */; };
 		2FC854612AEA53BC0025D292 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854602AEA53BC0025D292 /* DeviceData.swift */; };
+		2FC854642AEA7B360025D292 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854632AEA7B360025D292 /* Mockable.swift */; };
+		2FC854662AEA7B520025D292 /* MasimoServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854652AEA7B520025D292 /* MasimoServiceMock.swift */; };
+		2FC854682AEA7BEE0025D292 /* MasimoServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC854672AEA7BEE0025D292 /* MasimoServiceTests.swift */; };
+		2FC8546C2AEA7D8D0025D292 /* now_playing_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 2FC8546A2AEA7D8D0025D292 /* now_playing_response.json */; };
+		2FC8546D2AEA7D8D0025D292 /* devices_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 2FC8546B2AEA7D8D0025D292 /* devices_response.json */; };
+		2FC854702AEA82A10025D292 /* MasimoManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8546F2AEA82A10025D292 /* MasimoManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +70,10 @@
 		2F08406A2AE8ED2A007162E2 /* MasimoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasimoTests.swift; sourceTree = "<group>"; };
 		2F0840702AE8ED2A007162E2 /* MasimoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MasimoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F0840742AE8ED2A007162E2 /* MasimoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasimoUITests.swift; sourceTree = "<group>"; };
-		2F0840762AE8ED2A007162E2 /* MasimoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasimoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2F0840892AE8EDB6007162E2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		2FC637122AEB2187008EDC07 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		2FC637142AEB244F008EDC07 /* DevicesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewModelTests.swift; sourceTree = "<group>"; };
+		2FC637162AEB4B1E008EDC07 /* NowPlayingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewModelTests.swift; sourceTree = "<group>"; };
 		2FC854372AE8F45D0025D292 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
 		2FC854392AE8F46C0025D292 /* NowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
 		2FC8543B2AE8F4760025D292 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -82,6 +92,12 @@
 		2FC8545B2AE9D67C0025D292 /* Color+Named.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Named.swift"; sourceTree = "<group>"; };
 		2FC8545E2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceDisplayable+Mocks.swift"; sourceTree = "<group>"; };
 		2FC854602AEA53BC0025D292 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
+		2FC854632AEA7B360025D292 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
+		2FC854652AEA7B520025D292 /* MasimoServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasimoServiceMock.swift; sourceTree = "<group>"; };
+		2FC854672AEA7BEE0025D292 /* MasimoServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasimoServiceTests.swift; sourceTree = "<group>"; };
+		2FC8546A2AEA7D8D0025D292 /* now_playing_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = now_playing_response.json; sourceTree = "<group>"; };
+		2FC8546B2AEA7D8D0025D292 /* devices_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = devices_response.json; sourceTree = "<group>"; };
+		2FC8546F2AEA82A10025D292 /* MasimoManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasimoManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +170,9 @@
 		2F0840692AE8ED2A007162E2 /* MasimoTests */ = {
 			isa = PBXGroup;
 			children = (
+				2FC854712AEA84AC0025D292 /* PresentationLayer */,
+				2FC8546E2AEA82790025D292 /* DomainLayer */,
+				2FC854622AEA7B1F0025D292 /* NetworkLayer */,
 				2F08406A2AE8ED2A007162E2 /* MasimoTests.swift */,
 			);
 			path = MasimoTests;
@@ -163,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				2F0840742AE8ED2A007162E2 /* MasimoUITests.swift */,
-				2F0840762AE8ED2A007162E2 /* MasimoUITestsLaunchTests.swift */,
 			);
 			path = MasimoUITests;
 			sourceTree = "<group>";
@@ -262,6 +280,44 @@
 				2FC8545E2AE9DB9C0025D292 /* DeviceDisplayable+Mocks.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2FC854622AEA7B1F0025D292 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				2FC854692AEA7CD90025D292 /* Resources */,
+				2FC854632AEA7B360025D292 /* Mockable.swift */,
+				2FC854652AEA7B520025D292 /* MasimoServiceMock.swift */,
+				2FC854672AEA7BEE0025D292 /* MasimoServiceTests.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		2FC854692AEA7CD90025D292 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2FC8546B2AEA7D8D0025D292 /* devices_response.json */,
+				2FC8546A2AEA7D8D0025D292 /* now_playing_response.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2FC8546E2AEA82790025D292 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				2FC8546F2AEA82A10025D292 /* MasimoManagerTests.swift */,
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		2FC854712AEA84AC0025D292 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				2FC637122AEB2187008EDC07 /* HomeViewModelTests.swift */,
+				2FC637142AEB244F008EDC07 /* DevicesViewModelTests.swift */,
+				2FC637162AEB4B1E008EDC07 /* NowPlayingViewModelTests.swift */,
+			);
+			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,6 +433,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC8546D2AEA7D8D0025D292 /* devices_response.json in Resources */,
+				2FC8546C2AEA7D8D0025D292 /* now_playing_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +480,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC637172AEB4B1E008EDC07 /* NowPlayingViewModelTests.swift in Sources */,
+				2FC854662AEA7B520025D292 /* MasimoServiceMock.swift in Sources */,
+				2FC637152AEB244F008EDC07 /* DevicesViewModelTests.swift in Sources */,
+				2FC854702AEA82A10025D292 /* MasimoManagerTests.swift in Sources */,
+				2FC854682AEA7BEE0025D292 /* MasimoServiceTests.swift in Sources */,
 				2F08406B2AE8ED2A007162E2 /* MasimoTests.swift in Sources */,
+				2FC854642AEA7B360025D292 /* Mockable.swift in Sources */,
+				2FC637132AEB2187008EDC07 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +495,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F0840772AE8ED2A007162E2 /* MasimoUITestsLaunchTests.swift in Sources */,
 				2F0840752AE8ED2A007162E2 /* MasimoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

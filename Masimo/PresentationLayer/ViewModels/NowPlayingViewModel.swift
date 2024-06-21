@@ -10,16 +10,19 @@ import Combine
 
 class NowPlayingViewModel: ObservableObject {
     
+    // Device that is currently selected from Devices screen; Nil of no selection yet
     @Published var currentDevice: DeviceData?
     
     var masimoManager: MasimoManagable
     private var cancellabels = Set<AnyCancellable>()
     
+    // Dependency injection
     init(masimoManager: MasimoManagable) {
         
         self.masimoManager = masimoManager
         self.currentDevice = masimoManager.currentDeviceSubject.value
         
+        // Update changes in Domain layer to update UI
         masimoManager.currentDeviceSubject
             .dropFirst()
             .receive(on: RunLoop.main)
@@ -31,6 +34,7 @@ class NowPlayingViewModel: ObservableObject {
         masimoManager.fetchNowPlaying()
     }
     
+    // User updated play / pause state
     func updateState() {
         guard let currentDevice = currentDevice else {
             return

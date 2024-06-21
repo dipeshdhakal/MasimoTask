@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// Mock data for testing and "Show mock data" setting
 extension DeviceData {
     
     static var mockDevices: [DeviceData] {
@@ -15,7 +16,7 @@ extension DeviceData {
     }
     
     static var mockCurrentDevice: DeviceData {
-        return DeviceData(deviceID: 0, deviceTitle: "Test Device", artwork: "https://skyegloup-eula.s3.amazonaws.com/heos_app/code_test/Appetite+For+Destruction+-+small.jpg", largeArtwork: "https://skyegloup-eula.s3.amazonaws.com/heos_app/code_test/Appetite+For+Destruction+-+large.jpg", trackTitle: "Test title", artistTitle: "Test artist")
+        return DeviceData(deviceID: 200, deviceTitle: "Test Device", artwork: "https://skyegloup-eula.s3.amazonaws.com/heos_app/code_test/Appetite+For+Destruction+-+small.jpg", largeArtwork: "https://skyegloup-eula.s3.amazonaws.com/heos_app/code_test/Appetite+For+Destruction+-+large.jpg", trackTitle: "Test title", artistTitle: "Test artist")
     }
 }
 
@@ -24,6 +25,7 @@ class MockMasimoManager: MasimoManagable {
     var dataIsLoading: Bool = false
     var displayablesSubject = CurrentValueSubject<[DeviceData], Error>([])
     var currentDeviceSubject = CurrentValueSubject<DeviceData?, Never>(nil)
+    
     
     func fetchDevices() {
         displayablesSubject.send(DeviceData.mockDevices)

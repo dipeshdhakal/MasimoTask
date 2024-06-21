@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// List of enpointd for fetching Masimo data
 enum MasimoEndpoint {
     case listDevices
     case listNowPlaying

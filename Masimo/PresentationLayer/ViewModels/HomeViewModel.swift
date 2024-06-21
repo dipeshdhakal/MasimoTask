@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// Home Tab item
 enum HomeTab: String, CaseIterable, Identifiable {
     
     var id: String {
@@ -44,24 +45,21 @@ enum HomeTab: String, CaseIterable, Identifiable {
 class HomeViewModel: ObservableObject {
     
     @Published var tabs = HomeTab.allCases
-    @Published var isMockData: Bool
+    @Published var isMockData: Bool = false
     @Published var devicesViewModel: DevicesViewModel
     @Published var nowPlayingViewModel: NowPlayingViewModel
     
     var masimoManager: MasimoManagable
     private var cancellabels = Set<AnyCancellable>()
     
-    init(masimoManager: MasimoManagable = MasimoManager(), isMockData: Bool = false) {
-                
-        if isMockData || isPreview {
-            self.masimoManager = MockMasimoManager()
-        } else {
-            self.masimoManager = masimoManager
-        }
-        self.isMockData = isMockData
+    // Dependency injection
+    init(masimoManager: MasimoManagable = MasimoManager()) {
+        
+        self.masimoManager = masimoManager
         self.devicesViewModel = DevicesViewModel(masimoManager: self.masimoManager)
         self.nowPlayingViewModel = NowPlayingViewModel(masimoManager: self.masimoManager)
         
+        // observe "show mock data" setting
         $isMockData
             .dropFirst()
             .removeDuplicates()
@@ -73,6 +71,7 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancellabels)
     }
     
+    // When the data sources changes to mock data (or vise versa), we need to completely reload datasource
     func setViewModels() {
         self.devicesViewModel = DevicesViewModel(masimoManager: masimoManager)
         self.nowPlayingViewModel = NowPlayingViewModel(masimoManager: masimoManager)

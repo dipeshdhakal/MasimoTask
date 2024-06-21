@@ -16,22 +16,3 @@ public var isPreview: Bool {
     #endif
     return false
 }
-
-// Returns true if running unit test; false otherwise
-public var isUnitTest: Bool {
-    return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
-}
-
-// Returns true if either preview or unit test
-public var isPreviewOrUnitTest: Bool {
-    return isPreview || isUnitTest
-}
-
-var isUITest: Bool {
-    #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("IS_UI_TEST") {
-            return true
-        }
-    #endif
-    return false
-}
